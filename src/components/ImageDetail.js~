@@ -5,7 +5,7 @@ const ImageDetail = ({ title, imagePath, score }) => {
     console.log('Image score is ', + score);
     return <View style={styles.text}>
         <Image source={imagePath} />
-        <Text>This is the {title}</Text>
+        <Text>{title}</Text>
         <Text>Image Score - {score}</Text>
         </View>}
 

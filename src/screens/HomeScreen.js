@@ -30,6 +30,11 @@ const HomeScreen = ({ navigation }) => {
       >
         <Text style={styles.touchStyle}>Go to Color</Text>
       </TouchableOpacity>
+       <TouchableOpacity 
+        onPress={() => navigation.navigate('Square')}
+      >
+        <Text style={styles.touchStyle}>Go to Square</Text>
+      </TouchableOpacity>
       
 
       

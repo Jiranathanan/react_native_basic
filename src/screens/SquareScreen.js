@@ -1,24 +1,64 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Text, View, StyleSheet } from 'react-native';
 import ColorCounter from "../components/ColorCounter";
 
 const COLOR_INCREMENT = 25;
 
+const reducer = (state, action) => {
+    // state === { red: number, green: number, blue: number };
+    // action === { colorToChange: 'red' || 'green' || 'blue', amount: 15 || -15 }
+
+    switch(action.colorToChange) {
+        case 'red':
+            if ( state.red + action.amount <= 0) {
+                return { ...state, red: 0}
+            }
+            if ( state.red + action.amount >= 255) {
+                return { ...state, red: 255 }
+            } else {
+                return {...state, red: state.red + action.amount}
+            }
+        case 'green':
+            if (state.green + action.amount <= 0) {
+                return {...state, green: 0}
+            }
+            if (state.green + action.amount >= 255) {
+                return {...state, green: 255}
+            } else {
+                return {...state, green: state.green + action.amount}
+            }
+        case 'blue':
+            if (state.blue + action.amount <= 0) {
+                return {...state, blue: 0}
+            }
+            if (state.blue + action.amount >= 255) {
+                return {...state, blue: 255}
+            } else {
+                return {...state, blue: state.blue + action.amount}
+            }
+        default:
+    }
+}
+
 const SquareScreen = () => {
-    const [red, setRed] = useState(0);
-    const [green, setGreen] = useState(0);
-    const [blue, setBlue] = useState(0);
+    const [state, dispatch] = useReducer( reducer, {red: 0, green: 0, blue: 0})
 
     return <View>
-        <ColorCounter color="Red" onIncrease={() => setRed(Math.min(red + COLOR_INCREMENT, 255))} onDecrease={() => setRed(Math.max(red-COLOR_INCREMENT, 0))} />
-        <ColorCounter color="Green" onIncrease={() => setGreen(Math.min(green + COLOR_INCREMENT, 255))} onDecrease={() => setGreen(Math.max(green - COLOR_INCREMENT, 0))} />
-        <ColorCounter color="Blue" onIncrease={() => setBlue(Math.min(blue+COLOR_INCREMENT, 255))} onDecrease={() => setBlue(Math.max(blue-COLOR_INCREMENT, 0))} />
+        <ColorCounter color="Red" 
+                    onIncrease={() => dispatch({ colorToChange: 'red', amount: COLOR_INCREMENT }) } 
+                    onDecrease={() => dispatch({ colorToChange: 'red', amount: -COLOR_INCREMENT }) } />
+        <ColorCounter color="Green" 
+                    onIncrease={() => dispatch({ colorToChange: 'green', amount: COLOR_INCREMENT })} 
+                    onDecrease={() => dispatch({ colorToChange: 'green', amount: -COLOR_INCREMENT }) } />
+        <ColorCounter color="Blue" 
+                    onIncrease={() => dispatch({ colorToChange: 'blue', amount: COLOR_INCREMENT }) } 
+                    onDecrease={() => dispatch({ colorToChange: 'blue', amount: -COLOR_INCREMENT })} />
         <View style={{ height: 100, width: 100, 
-                        backgroundColor: `rgb( ${red}, ${green}, ${blue})`, 
+                        backgroundColor: `rgb( ${state.red}, ${state.green}, ${state.blue})`, 
                         marginHorizontal: 'auto', 
                         marginVertical: 50 }}>
         </View>
-        <Text style={{ textAlign: 'center', fontSize: 24, color: `rgb( ${red}, ${green}, ${blue})`}}>{"rgb(" + red + ", " + green + ", " + blue + ")"}</Text>
+        <Text style={{ textAlign: 'center', fontSize: 24 }}>{`rgb( ${state.red}, ${state.green}, ${state.blue})`}</Text>
     </View>
 }
 

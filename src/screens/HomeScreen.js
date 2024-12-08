@@ -10,30 +10,41 @@ const HomeScreen = ({ navigation }) => {
       >
         <Text style={styles.touchStyle}>Go to Components</Text>
       </TouchableOpacity>
+
       <TouchableOpacity 
         onPress={() => navigation.navigate('List')}
       >
         <Text style={styles.touchStyle}>Go to List</Text>
       </TouchableOpacity>      
+
       <TouchableOpacity 
         onPress={() => navigation.navigate('ImageScreen')}
       >
         <Text style={styles.touchStyle}>Go to Image</Text>
       </TouchableOpacity>
+
       <TouchableOpacity 
         onPress={() => navigation.navigate('Counter')}
       >
         <Text style={styles.touchStyle}>Go to Counter</Text>
       </TouchableOpacity>
+
       <TouchableOpacity 
         onPress={() => navigation.navigate('Color')}
       >
         <Text style={styles.touchStyle}>Go to Color</Text>
       </TouchableOpacity>
-       <TouchableOpacity 
+
+      <TouchableOpacity 
         onPress={() => navigation.navigate('Square')}
       >
         <Text style={styles.touchStyle}>Go to Square</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        onPress={() => navigation.navigate('Text')}
+      >
+        <Text style={styles.touchStyle}>Go to Text Input</Text>
       </TouchableOpacity>
       
 
